@@ -60,8 +60,9 @@ async function run(): Promise<void> {
 
     // Zero the ccache statistics
     await exec.exec('ccache -z')
-  } catch (error) {
+  } catch (error: any) {
     // Show fail error if there is any error
+    core.error(error)
     core.setFailed(error.message)
   }
 }

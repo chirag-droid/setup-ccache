@@ -54,6 +54,7 @@ function run() {
         }
         catch (error) {
             // Show fail error if there is any error
+            core.error(error);
             core.setFailed(error.message);
         }
     });
