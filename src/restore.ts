@@ -38,6 +38,13 @@ async function setConfig(key: string, value: string): Promise<void> {
 
 async function run(): Promise<void> {
   try {
+    // warn for windows
+    if (config.os === 'Windows') {
+      core.warning(
+        'ccache may not work properly on windows, if you are using MSVC compiler.'
+      )
+    }
+
     await setup()
     await restore()
 
@@ -46,13 +53,6 @@ async function run(): Promise<void> {
     const cacheDir = `${process.env.GITHUB_WORKSPACE}/${config.cacheDir}`
     await setConfig('cache_dir', cacheDir)
     await setConfig('compression', 'true')
-
-    // warn for windows
-    if (config.os === 'Windows') {
-      core.warning(
-        'ccache may not work properly on windows, if you are using MSVC compiler.'
-      )
-    }
 
     // Show ccache config
     core.info('Ccache configuration:')

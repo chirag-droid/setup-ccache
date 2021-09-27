@@ -117,6 +117,10 @@ function setConfig(key, value) {
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            // warn for windows
+            if (config_1.default.os === 'Windows') {
+                core.warning('ccache may not work properly on windows, if you are using MSVC compiler.');
+            }
             yield setup();
             yield restore();
             // Configure ccache
@@ -124,10 +128,6 @@ function run() {
             const cacheDir = `${process.env.GITHUB_WORKSPACE}/${config_1.default.cacheDir}`;
             yield setConfig('cache_dir', cacheDir);
             yield setConfig('compression', 'true');
-            // warn for windows
-            if (config_1.default.os === 'Windows') {
-                core.warning('ccache may not work properly on windows, if you are using MSVC compiler.');
-            }
             // Show ccache config
             core.info('Ccache configuration:');
             yield exec.exec('ccache -p');
