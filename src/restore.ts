@@ -38,6 +38,13 @@ async function setConfig(key: string, value: string): Promise<void> {
 
 async function run(): Promise<void> {
   try {
+    // warn for windows
+    if (config.os === 'Windows') {
+      core.warning(
+        'ccache may not work properly on windows, if you are using MSVC compiler.'
+      )
+    }
+
     await setup()
     await restore()
 
@@ -47,21 +54,15 @@ async function run(): Promise<void> {
     await setConfig('cache_dir', cacheDir)
     await setConfig('compression', 'true')
 
-    // warn for windows
-    if (config.os === 'Windows') {
-      core.warning(
-        'ccache may not work properly on windows, if you are using MSVC compiler.'
-      )
-    }
-
     // Show ccache config
     core.info('Ccache configuration:')
     await exec.exec('ccache -p')
 
     // Zero the ccache statistics
     await exec.exec('ccache -z')
-  } catch (error) {
+  } catch (error: any) {
     // Show fail error if there is any error
+    core.error(error)
     core.setFailed(error.message)
   }
 }
