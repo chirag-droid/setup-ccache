@@ -4,8 +4,24 @@ author: 'Chirag Singla <chirag.singla.pi@gmail.com>'
 inputs:
   key:
     description: "A key to access and update cache"
-    required: true
+    required: false
     default: "ccache-key"
+  cache_dir:
+    description: "Specifies where ccache will keep its cached compiler outputs."
+    requires: false
+    default: ".ccache"
+  compiler:
+    description: "Force the name of the compiler to use."
+    required: false
+    default: ""
+  compiler_type:
+    description: "The compiler_type option lets you force a compiler type."
+    required: false
+    default: "auto"
+  path:
+    description: "If set, ccache will search directories in this list when looking for compiler"
+    required: false
+    
 runs:
   using: 'node12'
   main: 'dist/restore/index.js'

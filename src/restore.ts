@@ -19,7 +19,7 @@ async function setup(): Promise<void> {
 async function restore(): Promise<void> {
   // Recover key from input and configure cache key
   const restoreKey = config.restoreKey
-  const paths = [config.cacheDir]
+  const paths = [config.cache_dir]
   const cachekey = config.cacheKey
   const restoreKeys = [restoreKey]
 
@@ -38,20 +38,25 @@ async function setConfig(key: string, value: string): Promise<void> {
 
 async function run(): Promise<void> {
   try {
-    await setup()
-    await restore()
-
-    // Configure ccache
-    core.info('Configuring ccache...')
-    const cacheDir = `${process.env.GITHUB_WORKSPACE}/${config.cacheDir}`
-    await setConfig('cache_dir', cacheDir)
-    await setConfig('compression', 'true')
-
     // warn for windows
     if (config.os === 'Windows') {
       core.warning(
         'ccache may not work properly on windows, if you are using MSVC compiler.'
       )
+    }
+
+    await setup()
+    await restore()
+
+    // Configure ccache
+    core.info('Configuring ccache...')
+    const cacheDir = `${process.env.GITHUB_WORKSPACE}/${config.cache_dir}`
+    await setConfig('cache_dir', cacheDir)
+    await setConfig('compression', 'true')
+    await setConfig('compiler', config.compiler)
+    await setConfig('compiler_type', config.compiler_type)
+    if (config.path) {
+      await setConfig('path', config.path)
     }
 
     // Show ccache config
@@ -60,8 +65,9 @@ async function run(): Promise<void> {
 
     // Zero the ccache statistics
     await exec.exec('ccache -z')
-  } catch (error) {
+  } catch (error: any) {
     // Show fail error if there is any error
+    core.error(error)
     core.setFailed(error.message)
   }
 }

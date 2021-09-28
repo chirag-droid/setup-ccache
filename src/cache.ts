@@ -11,10 +11,10 @@ async function run(): Promise<void> {
 
     // Save cache using key
     core.info(`Save cache using ${config.cacheKey}`)
-    const paths = [config.cacheDir]
-    await cache.saveCache(paths, config.cacheKey)
-  } catch (error) {
+    await cache.saveCache([config.cache_dir], config.cacheKey)
+  } catch (error: any) {
     // Show fail error if there is any error
+    core.error(error)
     core.setFailed(error.message)
   }
 }
