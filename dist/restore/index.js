@@ -132,7 +132,6 @@ function run() {
             yield setConfig('cache_dir', cacheDir);
             yield setConfig('compression', 'true');
             yield setConfig('compiler', config_1.default.compiler);
-            yield setConfig('compiler_type', config_1.default.compiler_type);
             if (config_1.default.path) {
                 yield setConfig('path', config_1.default.path);
             }
