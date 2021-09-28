@@ -42,3 +42,12 @@ jobs:
           cache_dir: ".ccache"
           compiler_type: "auto"
           path: ${{ matrix.path }}
+
+      - name: "Run with cmake"
+        working-directory: ./examples
+        uses: lukka/run-cmake@v3
+        with:
+          cmakeListsTxtPath: '${{ github.workspace }}/examples/CMakeLists.txt'
+          cmakeAppendedArgs: '-D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache'
+          buildWithCmake: true
+          buildDirectory: '${{ github.workspace }}/examples/build'
