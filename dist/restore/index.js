@@ -32,7 +32,10 @@ const config = {
     os: process.env.RUNNER_OS,
     restoreKey: `${key}-`,
     cacheKey: `${key}-${new Date().toISOString()}`,
-    cacheDir: '.ccache'
+    cache_dir: core.getInput('cache_dir'),
+    compiler: core.getInput('compiler'),
+    compiler_type: core.getInput('compiler_type'),
+    path: core.getInput('path')
 };
 exports.default = config;
 
@@ -96,7 +99,7 @@ function restore() {
     return __awaiter(this, void 0, void 0, function* () {
         // Recover key from input and configure cache key
         const restoreKey = config_1.default.restoreKey;
-        const paths = [config_1.default.cacheDir];
+        const paths = [config_1.default.cache_dir];
         const cachekey = config_1.default.cacheKey;
         const restoreKeys = [restoreKey];
         // Restore the cache from key
@@ -125,9 +128,14 @@ function run() {
             yield restore();
             // Configure ccache
             core.info('Configuring ccache...');
-            const cacheDir = `${process.env.GITHUB_WORKSPACE}/${config_1.default.cacheDir}`;
+            const cacheDir = `${process.env.GITHUB_WORKSPACE}/${config_1.default.cache_dir}`;
             yield setConfig('cache_dir', cacheDir);
             yield setConfig('compression', 'true');
+            yield setConfig('compiler', config_1.default.compiler);
+            yield setConfig('compiler_type', config_1.default.compiler_type);
+            if (config_1.default.path) {
+                yield setConfig('path', config_1.default.path);
+            }
             // Show ccache config
             core.info('Ccache configuration:');
             yield exec.exec('ccache -p');

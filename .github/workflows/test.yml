@@ -27,6 +27,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: windows-latest
+            path: "C:/msys64/mingw64/bin/"
+
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v2
@@ -35,3 +39,6 @@ jobs:
         uses: ./
         with:
           key: "ccache-key"
+          cache_dir: ".ccache"
+          compiler_type: "auto"
+          path: ${{ matrix.path }}

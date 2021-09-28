@@ -19,7 +19,7 @@ async function setup(): Promise<void> {
 async function restore(): Promise<void> {
   // Recover key from input and configure cache key
   const restoreKey = config.restoreKey
-  const paths = [config.cacheDir]
+  const paths = [config.cache_dir]
   const cachekey = config.cacheKey
   const restoreKeys = [restoreKey]
 
@@ -50,9 +50,14 @@ async function run(): Promise<void> {
 
     // Configure ccache
     core.info('Configuring ccache...')
-    const cacheDir = `${process.env.GITHUB_WORKSPACE}/${config.cacheDir}`
+    const cacheDir = `${process.env.GITHUB_WORKSPACE}/${config.cache_dir}`
     await setConfig('cache_dir', cacheDir)
     await setConfig('compression', 'true')
+    await setConfig('compiler', config.compiler)
+    await setConfig('compiler_type', config.compiler_type)
+    if (config.path) {
+      await setConfig('path', config.path)
+    }
 
     // Show ccache config
     core.info('Ccache configuration:')
