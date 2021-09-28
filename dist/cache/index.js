@@ -49,8 +49,7 @@ function run() {
             yield exec.exec('ccache -s');
             // Save cache using key
             core.info(`Save cache using ${config_1.default.cacheKey}`);
-            const paths = [config_1.default.cacheDir];
-            yield cache.saveCache(paths, config_1.default.cacheKey);
+            yield cache.saveCache([config_1.default.cache_dir], config_1.default.cacheKey);
         }
         catch (error) {
             // Show fail error if there is any error
@@ -95,7 +94,10 @@ const config = {
     os: process.env.RUNNER_OS,
     restoreKey: `${key}-`,
     cacheKey: `${key}-${new Date().toISOString()}`,
-    cacheDir: '.ccache'
+    cache_dir: core.getInput('cache_dir'),
+    compiler: core.getInput('compiler'),
+    compiler_type: core.getInput('compiler_type'),
+    path: core.getInput('path')
 };
 exports.default = config;
 
