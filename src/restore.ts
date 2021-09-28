@@ -54,7 +54,6 @@ async function run(): Promise<void> {
     await setConfig('cache_dir', cacheDir)
     await setConfig('compression', 'true')
     await setConfig('compiler', config.compiler)
-    await setConfig('compiler_type', config.compiler_type)
     if (config.path) {
       await setConfig('path', config.path)
     }
