@@ -1,7 +1,8 @@
 name: 'Setup ccache (Windows, Linux, MacOs)'
 description: 'A github action to speedup cmake builds using ccache'
 author: 'Chirag Singla <chirag.singla.pi@gmail.com>'
-icon: archive
+icon: 'archive'
+color: 'purple'
 inputs:
   key:
     description: "A key to access and update cache"
