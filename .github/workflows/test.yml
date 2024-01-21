@@ -44,7 +44,7 @@ jobs:
           path: ${{ matrix.path }}
 
       - name: "Run with cmake"
-        uses: lukka/run-cmake@v3.27
+        uses: lukka/run-cmake@v3.4
         with:
           cmakeListsTxtPath: '${{ github.workspace }}/examples/CMakeLists.txt'
           cmakeAppendedArgs: '-D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache'
