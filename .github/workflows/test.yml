@@ -40,7 +40,6 @@ jobs:
         with:
           key: "ccache-key"
           cache_dir: ".ccache"
-          compiler_type: "auto"
           path: ${{ matrix.path }}
 
       - name: "Run with cmake"
