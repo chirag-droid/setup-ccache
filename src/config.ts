@@ -8,7 +8,6 @@ const config = {
   cacheKey: `${key}-${new Date().toISOString()}`,
   cache_dir: core.getInput('cache_dir'),
   compiler: core.getInput('compiler'),
-  compiler_type: core.getInput('compiler_type'),
   path: core.getInput('path')
 }
 
