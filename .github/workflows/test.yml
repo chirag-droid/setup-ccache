@@ -96,6 +96,8 @@ jobs:
           -D CMAKE_C_COMPILER_LAUNCHER=ccache
           -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
           -S ${{ github.workspace }}
+        working-directory: ./examples
 
       - name: Build Executable
         run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
+        working-directory: ./examples
