@@ -1,8 +1,11 @@
 name: 'Setup ccache (Windows, Linux, MacOs)'
 description: 'A github action to speedup cmake builds using ccache'
 author: 'Chirag Singla <chirag.singla.pi@gmail.com>'
-icon: 'archive'
-color: 'purple'
+
+branding:
+  icon: 'archive'
+  color: 'purple'
+
 inputs:
   key:
     description: "A key to access and update cache"
@@ -19,7 +22,7 @@ inputs:
   path:
     description: "If set, ccache will search directories in this list when looking for compiler"
     required: false
-    
+
 runs:
   using: 'node20'
   main: 'dist/restore/index.js'

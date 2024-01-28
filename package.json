@@ -1,20 +1,16 @@
 {
   "name": "ccache-setup",
-  "version": "0.0.1",
-  "private": true,
   "description": "Github action to speedup cmake builds using ccache",
-  "main": "lib/restore.js",
-  "scripts": {
-    "build": "tsc",
-    "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts",
-    "lint": "eslint src/**/*.ts",
-    "package": "ncc build lib/restore.js -o dist/restore && ncc build lib/cache.js -o dist/cache",
-    "all": "npm run build && npm run format && npm run lint && npm run package"
-  },
+  "version": "0.0.1",
+  "author": "Chirag Singla <chirag.singla.pi@gmail.com>",
+  "private": true,
+  "homepage": "https://github.com/chirag-droid/setup-ccache",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chirag-droid/setup-ccache"
+  },
+  "bugs": {
+    "url": "https://github.com/chirag-droid/setup-ccache/issues"
   },
   "keywords": [
     "actions",
@@ -25,23 +21,28 @@
     "ccache",
     "cache"
   ],
-  "author": "Chirag Singla <chirag.singla.pi@gmail.com>",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "lib/restore.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write **/*.ts",
+    "package": "npm run build && ncc build lib/restore.js -o dist/restore && ncc build lib/cache.js -o dist/cache",
+    "all": "npm run format && npm run package"
+  },
   "license": "MIT",
-  "homepage": "https://github.com/chirag-droid/setup-ccache",
   "dependencies": {
     "@actions/cache": "^3.2.3",
-    "@actions/core": "^1.10.0",
+    "@actions/core": "^1.10.1",
     "@actions/exec": "^1.1.1",
     "@actions/github": "^6.0.0"
   },
   "devDependencies": {
-    "@types/node": "^16.11.0",
-    "@typescript-eslint/parser": "^6.19.0",
+    "@types/node": "^20.11.8",
     "@vercel/ncc": "^0.38.1",
-    "eslint": "^8.56.0",
-    "eslint-plugin-github": "^4.1.1",
     "js-yaml": "^4.1.0",
-    "prettier": "2.4.1",
-    "typescript": "^4.4.3"
+    "prettier": "3.2.4",
+    "typescript": "^5.3.3"
   }
 }
