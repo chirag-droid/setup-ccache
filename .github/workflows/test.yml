@@ -95,9 +95,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
           -D CMAKE_C_COMPILER_LAUNCHER=ccache
           -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
-          -S ${{ github.workspace }}
-        working-directory: ./examples
+          -S ${{ github.workspace }}/examples
 
       - name: Build Executable
         run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
-        working-directory: ./examples
