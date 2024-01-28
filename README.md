@@ -21,7 +21,7 @@ jobs:
         key: 'ccache-example-key'
 
     - name: Build with cmake
-      uses: lukka/run-cmake@v3
+      uses: lukka/run-cmake@v1
       with:
         cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
         cmakeAppendedArgs: '-D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache'
