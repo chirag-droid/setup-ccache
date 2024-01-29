@@ -16,7 +16,11 @@ async function run(): Promise<void> {
     // Show fail error if there is any error
     core.error(error)
     core.setFailed(error.message)
+
+    process.exit(1)
   }
+
+  process.exit(0)
 }
 
 run()
